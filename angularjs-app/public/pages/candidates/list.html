@@ -1,0 +1,57 @@
+<div class="row my-2">
+    <div class="col">
+
+        <a href="#!/candidates/add" class="btn btn-primary btn-sm my-2">
+            + Add
+        </a>
+
+        <table ng-if="candidates.length > 0" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <a href="#!/candidates" ng-click="getList()" title="Сортувати">Date</a>
+                    </th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Birthday</th>
+                    <th scope="col">Experience, years</th>
+                    <th scope="col">PHP Frameworks</th>
+                    <th scope="col">CV</th>
+                    <th scope="col">Comment</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="candidate in candidates">
+                    <th scope="row">{{ candidate.created_at }}</th>
+                    <th>{{ candidate.name }}</th>
+                    <td>{{ candidate.birthday }}</td>
+                    <td>{{ candidate.experience }}</td>
+                    <td>
+                        <ul>
+                            <li ng-repeat="framework in candidate.frameworks">
+                                {{ framework.name }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <a href="{{ candidate.resume }}" target="_blank">Download</a>
+                    </td>
+                    <td>{{ candidate.comment }}</td>
+                    <td class="">
+                        <a href="#!/candidates/{{ candidate.id }}" class="btn btn-light btn-sm">
+                            Edit
+                        </a>
+                        <button ng-click="remove(candidate.id)" type="button" class="btn btn-danger btn-sm">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p ng-if="candidates.length === 0" class="my-2">
+            No candidates
+        </p>
+
+    </div>
+</div>

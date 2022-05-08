@@ -1,0 +1,57 @@
+<?php
+
+declare(strict_types=1);
+
+namespace app\modules\api\providers;
+
+use yii\base\BaseObject;
+use yii\data\DataProviderInterface;
+
+final class MapDataProvider extends BaseObject implements DataProviderInterface
+{
+    private $next;
+    private $callback;
+
+    public function __construct(DataProviderInterface $next, callable $callback)
+    {
+        $this->next = $next;
+        $this->callback = $callback;
+
+        parent::__construct();
+    }
+
+    public function prepare($forcePrepare = false): void
+    {
+        $this->next->prepare($forcePrepare);
+    }
+
+    public function getCount(): int
+    {
+        return $this->next->getCount();
+    }
+
+    public function getTotalCount(): int
+    {
+        return $this->next->getTotalCount();
+    }
+
+    public function getModels(): array
+    {
+        return array_map($this->callback, $this->next->getModels());
+    }
+
+    public function getKeys(): array
+    {
+        return $this->next->getKeys();
+    }
+
+    public function getSort()
+    {
+        return $this->next->getSort();
+    }
+
+    public function getPagination()
+    {
+        return $this->next->getPagination();
+    }
+}

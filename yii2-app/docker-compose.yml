@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql/mysql-server:8.0
+    ports:
+      - "127.0.0.1:${MYSQL_PORT}:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - data_mysql:/var/lib/mysql:delegated
+    networks:
+      - bridge
+    command: --max_allowed_packet=256M --collation-server=utf8mb4_unicode_ci --character-set-server=utf8mb4 --default-authentication-plugin=mysql_native_password
+  adminer:
+    image: adminer:latest
+    ports:
+      - "127.0.0.1:${ADMINER_PORT}:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=mysql
+    networks:
+      - bridge
+networks:
+  bridge:
+    driver: bridge
+volumes:
+  data_mysql:
+    driver: local

@@ -1,0 +1,79 @@
+<div class="row my-2">
+    <div class="col">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Add a candidate</h5>
+
+                <form ng-submit="store()">
+                    <div ng-if="errorMessages.length > 0">
+                        <ul>
+                            <li ng-repeat="errorMessage in errorMessages" class="text-danger">
+                                {{ errorMessage }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input ng-model="nameModel" type="text" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Birthday</label>
+                        <div class="col-sm-9">
+                            <input ng-model="birthdayModel" type="date" class="form-control" min="1970-01-01" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Experience, years</label>
+                        <div class="col-sm-9">
+                            <input ng-model="experienceModel" type="number" class="form-control" min="0" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">PHP Frameworks</label>
+                        <div class="col-sm-9">
+
+                            <div ng-repeat="framework in frameworks" class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    ng-model="frameworkModel[framework.id]"
+                                >
+                                <label class="form-check-label">
+                                    {{ framework.name}}
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">CV</label>
+                        <div class="col-sm-9">
+                            <input file-model="resumeFile" type="file" class="form-control">
+                            <div class="form-text">CV are accepted in the format: pdf.</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">Comment</label>
+                        <div class="col-sm-9">
+                            <textarea ng-model="commentModel" class="form-control" style="height: 100px"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        Add
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
